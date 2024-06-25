@@ -5,7 +5,7 @@ import joblib
 app = Flask(__name__)
 
 # Load the model and scaler
-model = joblib.load('modelo.pkl')
+model = joblib.load('model.pkl')
 scaler = joblib.load('escalador.pkl')
 
 @app.route('/', methods=['GET', 'POST'])
