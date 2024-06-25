@@ -1,57 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calidad del Aire</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .profile-img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-        }
-        .card {
-            width: 400px;
-            margin: auto;
-            margin-top: 50px;
-        }
-    </style>
+    <title>Calculadora de Recibo de Luz</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
-<body class="bg-light">
-    <div class="card shadow-sm">
-        <div class="card-body text-center">
-            <img src="https://res.cloudinary.com/dltytaqui/image/upload/v1717688417/udrnhykjtfuxmd4sqr1x.jpg" alt="Profile" class="profile-img mb-3">
-            <h5 class="card-title">Avelina Hernandes Hernandez</h5>
-            <h6 class="card-subtitle mb-3 text-muted">Matrícula 0210658 - 9no A</h6>
-            <form method="post">
-                <div class="form-group">
-                    <label for="pm10">PM10</label>
-                    <input type="text" id="pm10" name="pm10" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="co">CO</label>
-                    <input type="text" id="co" name="co" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="nh3">NH3</label>
-                    <input type="text" id="nh3" name="nh3" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="o3">O3</label>
-                    <input type="text" id="o3" name="o3" class="form-control" required>
-                </div>
-                <button type="submit" class="btn btn-warning btn-block">Medir Calidad del Aire</button>
-            </form>
-            {% if message %}
-            <div class="alert alert-info mt-3">
-                {{ message }}
+<body>
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h1 class="card-title text-center">Predice el total a pagar de tu recibo de luz</h1>
+                <form id="prediction-form" method="post">
+                    <div class="form-group">
+                        <label for="horas">Horas Mensuales</label>
+                        <input type="number" step="0.01" id="horas" name="horas" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tasa">Tasa de Tarifa</label>
+                        <input type="number" step="0.01" id="tasa" name="tasa" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ciudad">Ciudad</label>
+                        <select id="ciudad" name="ciudad" class="form-control">
+                            <option value="5.0">Hyderabad</option>
+                            <option value="9.0">Navi Mumbai</option>
+                            <option value="13.0">Ratnagiri</option>
+                            <option value="3.0">Faridabad</option>
+                            <option value="4.0">Gurgaon</option>
+                            <option value="0.0">Ahmedabad</option>
+                            <option value="10.0">New Delhi</option>
+                            <option value="7.0">Mumbai</option>
+                            <option value="1.0">Chennai</option>
+                            <option value="2.0">Dahej</option>
+                            <option value="8.0">Nagpur</option>
+                            <option value="11.0">Noida</option>
+                            <option value="12.0">Pune</option>
+                            <option value="14.0">Shimla</option>
+                            <option value="6.0">Kolkata</option>
+                            <option value="15.0">Vadodara</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="compania">Compañía</label>
+                        <select id="compania" name="compania" class="form-control">
+                            <option value="23">Ringfeder Power Transmission India Pvt. Ltd.</option>
+                            <option value="6">JSW Energy Ltd.</option>
+                            <option value="4">Guj Ind Power</option>
+                            <option value="24">SJVN Ltd.</option>
+                            <option value="12">Maha Transco – Maharashtra State Electricity Transmission Co, Ltd.</option>
+                            <option value="15">NTPC Pvt. Ltd.</option>
+                            <option value="17">Optibelt Power Transmission India Private Limited</option>
+                            <option value="10">Kalpataru Power</option>
+                            <option value="3">GE T&D India Limited</option>
+                            <option value="9">KEC International</option>
+                            <option value="22">Reliance Power</option>
+                            <option value="18">Orient Green</option>
+                            <option value="28">Torrent Power Ltd.</option>
+                            <option value="11">L&T Transmission & Distribution</option>
+                            <option value="31">Unitech Power Transmission Ltd.</option>
+                            <option value="19">Power Grid Corp</option>
+                            <option value="7">Jaiprakash Power</option>
+                            <option value="14">NLC India</option>
+                            <option value="26">Sunil Hitech Eng</option>
+                            <option value="25">Sterlite Power Transmission Ltd</option>
+                            <option value="0">Adani Power Ltd.</option>
+                            <option value="20">Ratnagiri Gas and Power Pvt. Ltd. (RGPPL)</option>
+                            <option value="13">NHPC</option>
+                            <option value="16">Neueon Towers / Sujana Towers Ltd.</option>
+                            <option value="1">Bonfiglioli Transmission Pvt. Ltd.</option>
+                            <option value="8">Jyoti Structure</option>
+                            <option value="30">TransRail Lighting</option>
+                            <option value="5">Indowind Energy</option>
+                            <option value="2">CESC</option>
+                            <option value="27">Tata Power Company Ltd.</option>
+                            <option value="21">Reliance Energy</option>
+                            <option value="29">Toshiba Transmission & Distribution Systems (India) Pvt. Ltd.</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-dark btn-block">Predecir Total</button>
+                </form>
             </div>
-            {% endif %}
+        </div>
+        <div class="footer mt-4 text-center">
+            <img src="{{ url_for('static', filename='img/profile.jpg') }}" alt="Imagen de Perfil" class="rounded-circle" width="50" height="50">
+            <div>
+                <p class="mb-0">Avelina Hernández Hernández</p>
+                <p class="mb-0">Matrícula: 20210667 - 9no A</p>
+            </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            {% if total is not none %}
+                Swal.fire({
+                    title: 'Total a pagar',
+                    text: 'Total a pagar: ${{ total }}',
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                });
+            {% endif %}
+        });
+    </script>
 </body>
 </html>
