@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calidad del Aire</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .profile-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+        .card {
+            width: 400px;
+            margin: auto;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="card shadow-sm">
+        <div class="card-body text-center">
+            <img src="https://res.cloudinary.com/dltytaqui/image/upload/v1717688417/udrnhykjtfuxmd4sqr1x.jpg" alt="Profile" class="profile-img mb-3">
+            <h5 class="card-title">Avelina Hernandes Hernandez</h5>
+            <h6 class="card-subtitle mb-3 text-muted">Matrícula 0210658 - 9no A</h6>
+            <form method="post">
+                <div class="form-group">
+                    <label for="pm10">PM10</label>
+                    <input type="text" id="pm10" name="pm10" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="co">CO</label>
+                    <input type="text" id="co" name="co" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="nh3">NH3</label>
+                    <input type="text" id="nh3" name="nh3" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="o3">O3</label>
+                    <input type="text" id="o3" name="o3" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-warning btn-block">Medir Calidad del Aire</button>
+            </form>
+            {% if message %}
+            <div class="alert alert-info mt-3">
+                {{ message }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
